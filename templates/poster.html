@@ -1,0 +1,529 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<button id="form-toggle-btn" class="btn btn-primary" onclick="toggleForm()">Switch to Part Form</button>
+
+    <form method="POST" action="{{ url_for('poster') }}" enctype="multipart/form-data" id="bike-form">
+        <input type="hidden" name="formID" value="bike">
+        <h1 class="mb-4">Bicycle</h1>
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" class="form-control" name="price" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="year">Year:</label>
+                        <input type="number" class="form-control" name="year" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bicycle_type">Bicycle Type:</label>
+                        <select class="form-control" name="bicycle_type" required>
+                            <option value="" selected disabled>Select Bicycle Type</option>
+                            <option value="XC / Cross Country Bikes">XC / Cross Country Bikes</option>
+                            <option value="Trail Bikes">Trail Bikes</option>
+                            <option value="Enduro Bikes">Enduro Bikes</option>
+                            <option value="Downhill Bikes">Downhill Bikes</option>
+                            <option value="Dirt Jump Bikes">Dirt Jump Bikes</option>
+                            <option value="Kids Bikes">Kids Bikes</option>
+                            <option value="Vintage Bikes">Vintage Bikes</option>
+                            <option value="Road Bikes">Road Bikes</option>
+                            <option value="BMX Bikes">BMX Bikes</option>
+                            <option value="Commuter Bikes">Commuter Bikes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frame_material">Frame Material:</label>
+                        <select class="form-control" name="frame_material" required>
+                            <option value="" selected disabled>Select Frame Material</option>
+                            <option value="Aluminum">Aluminum</option>
+                            <option value="Steel">Steel</option>
+                            <option value="Carbon Fiber">Carbon Fiber</option>
+                            <option value="Chromoly">Chromoly</option>
+                            <option value="Titanium">Titanium</option>
+                            <option value="Other/Unknown">Other/Unknown</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frame_size">Frame Size:</label>
+                        <select class="form-control" name="frame_size" required>
+                            <option value="" selected disabled>Select Frame Size</option>
+                            <option value="Extra Small">Extra Small</option>
+                            <option value="12”">12”</option>
+                            <option value="13”">13”</option>
+                            <option value="14”">14”</option>
+                            <option value="Small">Small</option>
+                            <option value="15”">15”</option>
+                            <option value="15.5”">15.5”</option>
+                            <option value="16”">16”</option>
+                            <option value="16.5”">16.5”</option>
+                            <option value="Medium">Medium</option>
+                            <option value="17”">17”</option>
+                            <option value="17.5”">17.5”</option>
+                            <option value="18”">18”</option>
+                            <option value="18.5”">18.5”</option>
+                            <option value="Large">Large</option>
+                            <option value="19”">19”</option>
+                            <option value="19.5”">19.5”</option>
+                            <option value="20”">20”</option>
+                            <option value="20.5”">20.5”</option>
+                            <option value="Extra Large">Extra Large</option>
+                            <option value="21”">21”</option>
+                            <option value="21.5”">21.5”</option>
+                            <option value="22”">22”</option>
+                            <option value="22.5”">22.5”</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="wheel_size">Wheel Size:</label>
+                        <select class="form-control" name="wheel_size" required>
+                            <option value="" selected disabled>Select Wheel Size</option>
+                            <option value="10 “">10 “</option>
+                            <option value="12 “">12 “</option>
+                            <option value="14 “">14 “</option>
+                            <option value="16 “">16 “</option>
+                            <option value="18 “">18 “</option>
+                            <option value="20 “">20 “</option>
+                            <option value="24 “">24 “</option>
+                            <option value="26 “">26 “</option>
+                            <option value="27.5 “">27.5 “</option>
+                            <option value="29 “">29 “</option>
+                            <option value="650C">650C</option>
+                            <optaion value="700C">700C</option>
+                            <option value="Other/Unknown">Other/Unknown</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fork_travel">Fork Travel:</label>
+                        <input type="text" class="form-control" name="fork_travel" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rear_travel">Rear Travel:</label>
+                        <input type="text" class="form-control" name="rear_travel" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="condition">Condition:</label>
+                        <select class="form-control" name="condition" required>
+                            <option value="" selected disabled>Select Condition</option>
+                            <option value="Brand New">Brand New</option>
+                            <option value="Excellent">Excellent</option>
+                            <option value="Good">Good</option>
+                            <option value="Poor">Poor</option>
+                            <option value="For Parts">For Parts</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" name="description" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photos">Photos:</label>
+                        <input type="file" class="form-control-file" name="photos[]" multiple required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Post Ad</button>
+                </form>            
+            </div>
+
+               
+                    <form method="POST" action="" id="bike-part-form" style="display: none;" enctype="multipart/form-data">
+                        <input type="hidden" name="formID" value="bike_part">
+
+                        <!-- Name submission form elements here -->
+                        <h1 class="mb-4">Bicycle Part</h1>
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input type="text" class="form-control" name="title" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="price">Price:</label>
+                            <input type="number" class="form-control" name="price" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="year">Year:</label>
+                            <input type="number" class="form-control" name="year" required>
+                        </div>
+
+
+                    <div class="form-group">
+                        <label for="part_type">Part Type:</label>
+                        <select class="form-control" name="part_type" required id="part-type-select">                            
+                            <option value="" selected disabled>Select Part Type</option>
+                            <option value="All Mountain/Enduro Frames">All Mountain/Enduro Frames</option>
+                            <option value="DJ/Street/Park Frames">DJ/Street/Park Frames</option>
+                            <option value="XC Frames">XC Frames</option>
+                            <option value="Vintage Frames">Vintage Frames</option>
+                            <option value="Fork Parts / Springs">Fork Parts / Springs</option>
+                            <option value="Single Crown Forks">Single Crown Forks</option>
+                            <option value="Dual Crown Forks">Dual Crown Forks</option>
+                            <option value="Rear Shocks ( Air )">Rear Shocks ( Air )</option>
+                            <option value="Rear Shocks ( Coil )">Rear Shocks ( Coil )</option>
+                            <option value="Rear Shock Parts">Rear Shock Parts</option>
+                            <option value="Rear Shock Springs">Rear Shock Springs</option>
+                            <option value="Brakes">Brakes</option>
+                            <option value="Grips">Grips</option>
+                            <option value="Handle Bars ( 31.8 mm )">Handle Bars ( 31.8 mm )</option>
+                            <option value="Handle Bars ( 35 mm )">Handle Bars ( 35 mm )</option>
+                            <option value="Headsets">Headsets</option>
+                            <option value="Pedals ( Clipless)">Pedals ( Clipless)</option>
+                            <option value="Pedals ( Flat )">Pedals ( Flat )</option>
+                            <option value="Saddles">Saddles</option>
+                            <option value="Seatposts ( Dropper )">Seatposts ( Dropper )</option>
+                            <option value="Seatposts ( Fixed )">Seatposts ( Fixed )</option>
+                            <option value="Seatpost Parts">Seatpost Parts</option>
+                            <option value="Stems">Stems</option>
+                            <option value="Bottom Brackets">Bottom Brackets</option>
+                            <option value="Cassettes">Cassettes</option>
+                            <option value="Chains">Chains</option>
+                            <option value="Chain Guides">Chain Guides</option>
+                            <option value="Chain Rings">Chain Rings</option>
+                            <option value="Cranks">Cranks</option>
+                            <option value="Drivetrain Groupset">Drivetrain Groupset</option>
+                            <option value="Hubs">Hubs</option>
+                            <option value="Shifters/Derailleurs">Shifters/Derailleurs</option>
+                            <option value="Spokes">Spokes</option>
+                            <option value="Tires">Tires</option>
+                            <option value="Wheels ( with Hubs )">Wheels ( with Hubs )</option>
+                            <option value="Wheels ( Rims only )">Wheels ( Rims only )</option>
+                            <option value="E-Bikes MTB">E-Bikes MTB</option>
+                            <option value="E-Bikes Urban/Commuter">E-Bikes Urban/Commuter</option>
+                            <option value="E-Bikes Road/Gravel">E-Bikes Road/Gravel</option>
+                            <option value="E-Bike Parts">E-Bike Parts</option>
+                            <option value="Fat Bikes">Fat Bikes</option>
+                            <option value="Fat Bike Frames">Fat Bike Frames</option>
+                            <option value="Fat Bike Parts">Fat Bike Parts</option>
+                            <option value="BMX Bikes">BMX Bikes</option>
+                            <option value="BMX Frames">BMX Frames</option>
+                            <option value="BMX Forks/Headsets/Pegs">BMX Forks/Headsets/Pegs</option>
+                            <option value="BMX Wheels/Rims/Tires">BMX Wheels/Rims/Tires</option>
+                            <option value="BMX Seat/Post/Clamps">BMX Seat/Post/Clamps</option>
+                            <option value="BMX Bars/Grips/Stems">BMX Bars/Grips/Stems</option>
+                            <option value="BMX Cranks/BBs/Chains">BMX Cranks/BBs/Chains</option>
+                            <option value="BMX Brakes">BMX Brakes</option>
+                            <option value="BMX Hubs">BMX Hubs</option>
+                            <option value="BMX Pedals">BMX Pedals</option>
+                            <option value="BMX Parts">BMX Parts</option>
+                            <option value="Gravel/CX Bikes">Gravel/CX Bikes</option>
+                            <option value="Gravel/CX Frames">Gravel/CX Frames</option>
+                            <option value="Gravel/CX Parts">Gravel/CX Parts</option>
+                            <option value="Road Bikes">Road Bikes</option>
+                            <option value="Road Frames">Road Frames</option>
+                            <option value="Road Parts">Road Parts</option>
+                            <option value="Trials Bikes">Trials Bikes</option>
+                            <option value="Trials Frames">Trials Frames</option>
+                            <option value="Trials Parts">Trials Parts</option>
+
+                            <option value="Goggles/Shades">Goggles/Shades</option>
+                            <option value="GPS/Speedometers">GPS/Speedometers</option>
+
+                            <option value="Bike Bags">Bike Bags</option>
+                            <option value="Bike Racks">Bike Racks</option>
+                            <option value="Other">Other</option>
+
+                            <option value="Stolen Bikes/Parts">Stolen Bikes/Parts</option>
+                            <option value="Tools/Bike Stands">Tools/Bike Stands</option>
+                            <option value="Trainers / Rollers">Trainers / Rollers</option>
+                            <option value="DH Frames">DH Frames</option>
+                        </select>
+                    
+                        
+                                
+            <!-- FILEPATH: /home/sven/Documents/OnTopAds/OtaPWA/templates/poster.html -->
+                        <div id="variableSelect" >
+                        <div class="form-group" style="display: none;">
+                            <label for="wheel_size">Wheel Size:</label>
+                            <select id="wheel_size" name="wheel_size" class="form-control">
+                                <option value="null" selected="selected">Select an option</option>
+                                {% for option in fieldsList['Wheel Size:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label for="frame_size">Frame Size:</label>
+                            <select id="frame_size" name="frame_size" class="form-control">
+                                <option value="null" selected="selected">Select an option</option>
+                                {% for option in fieldsList['Frame Size:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label for="material">Material:</label>
+                            <select id="material" name="material" class="form-control">
+                                <option value="null" selected="selected" >Select an option</option>
+                                {% for option in fieldsList['Material:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="display: none;">
+                                <label for="rear_travel">Rear Travel:</label>
+                                <select id="rear_travel" name="rear_travel" class="form-control">
+                                    <option value="null" selected="selected">Select an option</option>
+                                    {% for option in fieldsList['Rear Travel:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label for="fork_travel">Fork Travel:</label>
+                            <select id="fork_travel" name="fork_travel" class="form-control">
+                                <option value="null" selected="selected">Select an option</option>
+                                {% for option in fieldsList['Fork Travel:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label for="front_axle">Front Axle:</label>
+                            <select id="front_axle" name="front_axle" class="form-control">
+                                <option value="null" selected="selected">Select an option</option>
+                                {% for option in fieldsList['Front Axle:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label for="rear_axle">Rear Axle:</label>
+                            <select id="rear_axle" name="rear_axle" class="form-control">
+                                <option value="null" selected="selected">Select an option</option>
+                                {% for option in fieldsList['Rear Axle:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label for="seatpost_diameter">Seatpost Diameter:</label>
+                            <select id="seatpost_diameter" name="seatpost_diameter" class="form-control">
+                                <option value="null" selected="selected">Select an option</option>
+                                {% for option in fieldsList['Seatpost Diameter:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label for="seatpost_travel">Seatpost Travel:</label>
+                            <select id="seatpost_travel" name="seatpost_travel" class="form-control">
+                                <option value="null" selected="selected">Select an option</option>
+                                {% for option in fieldsList['Seatpost Travel:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label for="shock_eye_to_eye">Shock Eye to Eye:</label>
+                            <select id="shock_eye_to_eye" name="shock_eye_to_eye" class="form-control">
+                                <option value="null" selected="selected">Select an option</option>
+                                {% for option in fieldsList['Shock Eye to Eye:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label for="shock_stroke">Shock Stroke:</label>
+                            <select id="shock_stroke" name="shock_stroke" class="form-control">
+                                <option value="null" selected="selected">Select an option</option>
+                                {% for option in fieldsList['Shock Stroke:'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label for="shock_spring_rate">Shock Spring Rate (lbs):</label>
+                            <select id="shock_spring_rate" name="shock_spring_rate" class="form-control">
+                                <option value="null" selected="selected">Select an option</option>
+                                {% for option in fieldsList['Shock Spring Rate:(lbs)'] %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        </div>
+                        <div class="form-group">
+                            <label for="condition">Condition:</label>
+                            <select class="form-control" name="condition" required>
+                                <option value="null" selected="selected">Select Condition</option>
+                                <option value="Brand New">Brand New</option>
+                                <option value="Excellent">Excellent</option>
+                                <option value="Good">Good</option>
+                                <option value="Poor">Poor</option>
+                                <option value="For Parts">For Parts</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea class="form-control" name="description" required></textarea>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="photos">Photos:</label>
+                            <input type="file" class="form-control-file" name="photos[]" multiple required>
+                        </div>
+    
+                        <button type="submit" class="btn btn-primary">Post Ad</button>
+                        
+                    </div>
+                </form>
+                
+                <script>
+                    document.getElementById('part-type-select').addEventListener('change', function() {
+                        
+                        const variableSelect = document.getElementById('variableSelect');
+                        const selectList = variableSelect.getElementsByTagName('select');
+                        for (let i = 0; i < selectList.length; i++){
+                            selectList[i].parentElement.style.display = 'none';
+                        }
+                        var partTypeOptions = {
+                        'All Mountain/Enduro Frames': ['Wheel Size:', 'Fork Travel:', 'Frame Size:', 'Material:', 'Rear Travel:'],
+                        'DJ/Street/Park Frames': ['Wheel Size:', 'Frame Size:', 'Material:'],
+                        'XC Frames': ['Wheel Size:', 'Frame Size:', 'Material:', 'Rear Travel:'],
+                        'Vintage Frames': [],
+                        'Fork Parts / Springs': [],
+                        'Single Crown Forks': ['Wheel Size:', 'Front Axle:', 'Fork Travel:'],
+                        'Dual Crown Forks': ['Wheel Size:', 'Front Axle:', 'Fork Travel:'],
+                        'Rear Shocks ( Air )': ['Shock Eye to Eye:', 'Shock Stroke:'],
+                        'Rear Shocks ( Coil )': ['Shock Eye to Eye:', 'Shock Stroke:', 'Shock Spring Rate:(lbs)'],
+                        'Rear Shock Parts': [],
+                        'Rear Shock Springs': ['Material:', 'Shock Spring Rate:(lbs)'],
+                        'Brakes': [],
+                        'Grips': [],
+                        'Handle Bars ( 31.8 mm )': ['Material:'],
+                        'Handle Bars ( 35 mm )': ['Material:'],
+                        'Headsets': [],
+                        'Pedals ( Clipless)': [],
+                        'Pedals ( Flat )': [],
+                        'Saddles': [],
+                        'Seatposts ( Dropper )': ['Seatpost Diameter:', 'Seatpost Travel:'],
+                        'Seatposts ( Fixed )': ['Seatpost Diameter:'],
+                        'Seatpost Parts': [],
+                        'Stems': [],
+                        'Bottom Brackets': [],
+                        'Cassettes': [],
+                        'Chains': [],
+                        'Chain Guides': [],
+                        'Chain Rings': [],
+                        'Cranks': ['Material:'],
+                        'Drivetrain Groupset': [],
+                        'Hubs': ['Front Axle:', 'Rear Axle:'],
+                        'Shifters/Derailleurs': [],
+                        'Spokes': [],
+                        'Tires': ['Wheel Size:'],
+                        'Wheels ( with Hubs )': ['Wheel Size:', 'Material:', 'Front Axle:', 'Rear Axle:'],
+                        'Wheels ( Rims only )': ['Wheel Size:'],
+                        'E-Bikes MTB': ['Wheel Size:', 'Frame Size:', 'Material:'],
+                        'E-Bikes Urban/Commuter': ['Wheel Size:', 'Frame Size:'],
+                        'E-Bikes Road/Gravel': ['Wheel Size:', 'Frame Size:'],
+                        'E-Bike Parts': [],
+                        'Fat Bikes': ['Wheel Size:', 'Frame Size:'],
+                        'Fat Bike Frames': ['Wheel Size:', 'Frame Size:'],
+                        'Fat Bike Parts': [],
+                        'BMX Bikes': ['Wheel Size:', 'Frame Size:'],
+                        'BMX Frames': ['Wheel Size:', 'Frame Size:'],
+                        'BMX Forks/Headsets/Pegs': [],
+                        'BMX Wheels/Rims/Tires': ['Wheel Size:'],
+                        'BMX Seat/Post/Clamps': [],
+                        'BMX Bars/Grips/Stems': [],
+                        'BMX Cranks/BBs/Chains': [],
+                        'BMX Brakes': [],
+                        'BMX Hubs': [],
+                        'BMX Pedals': [],
+                        'BMX Parts': [],
+                        'Gravel/CX Bikes': ['Wheel Size:', 'Frame Size:', 'Material:'],
+                        'Gravel/CX Frames': ['Wheel Size:', 'Frame Size:', 'Material:'],
+                        'Gravel/CX Parts': [],
+                        'Road Bikes': ['Wheel Size:', 'Frame Size:', 'Material:'],
+                        'Road Frames': ['Wheel Size:', 'Frame Size:', 'Material:'],
+                        'Road Parts': [],
+                        'Trials Bikes': ['Wheel Size:', 'Frame Size:'],
+                        'Trials Frames': ['Wheel Size:', 'Frame Size:'],
+                        'Trials Parts': [],
+                        'Bike Bags': [],
+                        'Bike Racks': [],
+                        'GPS/Speedometers': [],
+                        'Other': [],
+                        'Stolen Bikes/Parts': [],
+                        'Lights': [],
+                        'Tools/Bike Stands': [],
+                        'Trainers / Rollers': [],
+                        'DH Frames': ['Wheel Size:', 'Frame Size:', 'Material:', 'Rear Travel:']
+                    };
+                    var partFieldsNeeded = partTypeOptions[this.value];
+                    var selectIds = [
+                        "wheel-size",
+                        "frame-size",
+                        "material",
+                        "rear-travel",
+                        "fork-travel",
+                        "front-axle",
+                        "rear-axle",
+                        "seatpost-diameter",
+                        "seatpost-travel",
+                        "shock-eye-to-eye",
+                        "shock-stroke",
+                        "shock-spring-rate"
+                    ];
+
+                    for (let j = 0; j < partFieldsNeeded.length; j++){
+                        var elem = document.getElementById(partFieldsNeeded[j].toLowerCase().replace(/ /g, '-').replace(/:/g, ''));
+                        elem.parentElement.style.display = 'block';
+                    }
+
+                    });
+                </script>
+                
+                
+
+            
+
+
+<script>
+    function toggleForm() {
+        const formToggleBtn = document.getElementById('form-toggle-btn');
+        const bikeForm = document.getElementById('bike-form');
+        const nameForm = document.getElementById('bike-part-form');
+
+        if (bikeForm.style.display === 'none') {
+            bikeForm.style.display = 'block';
+            nameForm.style.display = 'none';
+            formToggleBtn.textContent = 'Switch to Part Form';
+        } else {
+            bikeForm.style.display = 'none';
+            nameForm.style.display = 'block';
+            formToggleBtn.textContent = 'Switch to Bike Form';
+        }
+    }
+</script>
+
+
+{% endblock %}
+
+

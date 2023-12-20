@@ -1,0 +1,87 @@
+/* Import Bootstrap */
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+/* Custom styles */
+body {
+  background-color: #f8f9fa;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #28a745;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: #fff;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-primary:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+/* Forms */
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Tables */
+.table thead th {
+  background-color: #02280b;
+  color: #fff;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(40, 167, 69, 0.15);
+}
+
+/* Alerts */
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.alert-success hr {
+  border-top-color: #b1dfbb;
+}
+
+.alert-success .alert-link {
+  color: #0b2e13;
+}
+
+/* Accents */
+.text-success {
+  color: #28a745;
+}
+
+.bg-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.border-success {
+  border-color: #28a745;
+}
+
+/* Custom classes */
+.green-text {
+  color: #28a745;
+}
+
+.green-bg {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.green-border {
+  border-color: #28a745;
+}

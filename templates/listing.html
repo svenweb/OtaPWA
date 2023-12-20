@@ -1,0 +1,52 @@
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">{{ result[listing_titles['Title']] }}</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    {% if result[5] %}
+                        {% for photo in result[5].split(',') %}
+                         {% set filenameConcat = filePrefix + photo %}
+                    <img style="max-height: 100px;" src="{{ url_for('static', filename=filenameConcat) }}" alt="photo" class="img-thumbnail">
+                        {% endfor %}
+                    {% else %}
+                        No photos available.
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <ul class="list-group">
+                        {% for tit in listing_titles%}
+                            {% if result[listing_titles[tit]] != 'null' %}
+                        <li class="list-group-item">{{tit}} : {{ result[listing_titles[tit]] }}</li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-2">
+                    <a href="{{ result[14] }}" class="btn btn-primary btn-block">Facebook</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="{{ result[15] }}" class="btn btn-primary btn-block">Craigslist</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="{{ result[16] }}" class="btn btn-primary btn-block">Kijiji</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="{{ result[19] }}" class="btn btn-primary btn-block">Pinkbike</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="{{ result[20] }}" class="btn btn-primary btn-block">eBay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

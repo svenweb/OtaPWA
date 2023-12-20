@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+    <h1 class="display-4 mb-4">Listings</h1>
+    <div>
+        <button id="form-toggle-btn" class="btn btn-primary" onclick="toggleListings(null, null, null,'all')">All</button>
+
+        <button id="pending-toggle-btn" class="btn btn-primary" onclick="toggleListings('pending', null, null,null)">Pending</button>
+        <button id="posted_toggle_btn" class="btn btn-primary" onclick="toggleListings(null, 'posted', null,null)">Posted</button>
+        <button id="deleted_toggle_btn" class="btn btn-primary" onclick="toggleListings(null, null, 'deleted',null)">Deleted</button>
+    </div>
+    <div class="table-responsive" id="all_listings_table">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Year</th>
+                    <th>Photos</th>
+                    <th>Status</th>
+                    <th>Date Posted</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in result %}
+
+
+            {% if row[2] == 'Post - Pending' %}
+                <tr style="background-color: rgb(142, 250, 142); color:black;">
+            {% elif row[2] == 'Delete - Pending' %}
+                <tr style="background-color: rgb(242, 118, 118); color:black;">
+            {% elif row[2] == 'Posted' %}
+                <tr style="background-color: rgb(2, 87, 31); color:white;">
+            {% elif row[2] == 'Deleted' %}
+                <tr style="background-color: rgb(102, 2, 22); color:white;">
+            {% else %}
+                <tr style="background-color: rgb(52, 51, 59); color:white;">
+            {% endif %}
+
+                    <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[6] }}</td>
+                    <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[7] }}</td>
+                    <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[8] }}</td>
+
+                    <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">
+                        {% if row[3] %}
+                            {% set filenameConcat = filePrefix + '/'+ row[4]|string +'/'+row[0]|string + '/'+row[3].split(',')[0] %}
+                            <img style="max-height: 100px;" src="{{ url_for('static', filename=filenameConcat) }}" alt="Photo {{ loop.index }}" class="img-thumbnail">
+                        {% else %}
+                            No photos available.
+                        {% endif %}
+                    </td>
+
+                    <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[2] }}</td>
+                    <td>{{ row[1] }}</td>
+                    {% if row[2] != 'Delete - Pending' and row[2] != 'Deleted' %}
+                        <td> <button onclick="confirmDelete('{{ row[6] }}', '{{ row[4] }}', '{{ row[0] }}')">Delete</button> </td>
+                    {% else %}
+                        <td> <button onclick="alert('This listing has been or is currently being deleted')">Delete</button> </td>
+                    {% endif %}
+                    </tr>
+
+            {% endfor %}
+            </tbody>
+            </table>
+            </div>
+
+
+            <div id="pending_table" style="display: none;" class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Year</th>
+                            <th>Photos</th>
+                            <th>Status</th>
+                            <th>Date Posted</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+        
+                    {% if row[2] == 'Post - Pending' or row[2] == 'Delete - Pending'%}
+                        {% if row[2] == 'Post - Pending' %}
+                            <tr style="background-color: rgb(142, 250, 142); color:black;">
+                        {% elif row[2] == 'Delete - Pending' %}
+                            <tr style="background-color: rgb(242, 118, 118); color:black;">
+                        {% elif row[2] == 'Posted' %}
+                            <tr style="background-color: rgb(2, 87, 31); color:white;">
+                        {% elif row[2] == 'Deleted' %}
+                            <tr style="background-color: rgb(102, 2, 22); color:white;">
+                        {% else %}
+                            <tr style="background-color: rgb(52, 51, 59); color:white;">
+                        {% endif %}
+            
+                                <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[6] }}</td>
+                                <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[7] }}</td>
+                                <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[8] }}</td>
+            
+                                <td onclick="window.location.href='/listing/{{ row[4] }}/{{ row[0] }}'">
+                                    {% if row[3] %}
+                                        {% set filenameConcat = filePrefix + '/'+ row[4]|string +'/'+row[0]|string + '/'+row[3].split(',')[0] %}
+                                        <img style="max-height: 100px;" src="{{ url_for('static', filename=filenameConcat) }}" alt="Photo {{ loop.index }}" class="img-thumbnail">
+                                    {% else %}
+                                        No photos available.
+                                    {% endif %}
+                                </td>
+            
+                                <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[2] }}</td>
+                                <td>{{ row[1] }}</td>
+                                {% if row[2] != 'Delete - Pending' and row[2] != 'Deleted' %}
+                                    <td> <button onclick="confirmDelete('{{ row[6] }}', '{{ row[4] }}', '{{ row[0] }}')">Delete</button> </td>
+                                {% else %}
+                                    <td> <button onclick="alert('This listing has been or is currently being deleted')">Delete</button> </td>
+                                {% endif %}
+                                </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                    </div>
+
+
+
+
+
+
+
+                    <div id="posted_table" style="display: none;" class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Price</th>
+                                    <th>Year</th>
+                                    <th>Photos</th>
+                                    <th>Status</th>
+                                    <th>Date Posted</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for row in result %}
+                
+                            {% if row[2] == 'Posted' %}
+                                {% if row[2] == 'Post - Pending' %}
+                                    <tr style="background-color: rgb(142, 250, 142); color:black;">
+                                {% elif row[2] == 'Delete - Pending' %}
+                                    <tr style="background-color: rgb(242, 118, 118); color:black;">
+                                {% elif row[2] == 'Posted' %}
+                                    <tr style="background-color: rgb(2, 87, 31); color:white;">
+                                {% elif row[2] == 'Deleted' %}
+                                    <tr style="background-color: rgb(102, 2, 22); color:white;">
+                                {% else %}
+                                    <tr style="background-color: rgb(52, 51, 59); color:white;">
+                                {% endif %}
+                    
+                                        <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[6] }}</td>
+                                        <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[7] }}</td>
+                                        <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[8] }}</td>
+                    
+                                        <td onclick="window.location.href='/listing/{{ row[4] }}/{{ row[0] }}'">
+                                            {% if row[3] %}
+                                                {% set filenameConcat = filePrefix + '/'+ row[4]|string +'/'+row[0]|string + '/'+row[3].split(',')[0] %}
+                                                <img style="max-height: 100px;" src="{{ url_for('static', filename=filenameConcat) }}" alt="Photo {{ loop.index }}" class="img-thumbnail">
+                                            {% else %}
+                                                No photos available.
+                                            {% endif %}
+                                        </td>
+                    
+                                        <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[2] }}</td>
+                                        <td>{{ row[1] }}</td>
+                                        {% if row[2] != 'Delete - Pending' and row[2] != 'Deleted' %}
+                                            <td> <button onclick="confirmDelete('{{ row[6] }}', '{{ row[4] }}', '{{ row[0] }}')">Delete</button> </td>
+                                        {% else %}
+                                            <td> <button onclick="alert('This listing has been or is currently being deleted')">Delete</button> </td>
+                                        {% endif %}
+                                        </tr>
+                            {% endif %}
+                            {% endfor %}
+                            </tbody>
+                            </table>
+                            </div>
+
+
+
+
+
+
+                            <div id="deleted_table" style="display: none;" class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Price</th>
+                                            <th>Year</th>
+                                            <th>Photos</th>
+                                            <th>Status</th>
+                                            <th>Date Posted</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for row in result %}
+                        
+                                    {% if row[2] == 'Deleted' %}
+                                        {% if row[2] == 'Post - Pending' %}
+                                            <tr style="background-color: rgb(142, 250, 142); color:black;">
+                                        {% elif row[2] == 'Delete - Pending' %}
+                                            <tr style="background-color: rgb(242, 118, 118); color:black;">
+                                        {% elif row[2] == 'Posted' %}
+                                            <tr style="background-color: rgb(2, 87, 31); color:white;">
+                                        {% elif row[2] == 'Deleted' %}
+                                            <tr style="background-color: rgb(102, 2, 22); color:white;">
+                                        {% else %}
+                                            <tr style="background-color: rgb(52, 51, 59); color:white;">
+                                        {% endif %}
+                            
+                                                <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[6] }}</td>
+                                                <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[7] }}</td>
+                                                <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[8] }}</td>
+                            
+                                                <td onclick="window.location.href='/listing/{{ row[4] }}/{{ row[0] }}'">
+                                                    {% if row[3] %}
+                                                        {% set filenameConcat = filePrefix + '/'+ row[4]|string +'/'+row[0]|string + '/'+row[3].split(',')[0] %}
+                                                        <img style="max-height: 100px;" src="{{ url_for('static', filename=filenameConcat) }}" alt="Photo {{ loop.index }}" class="img-thumbnail">
+                                                    {% else %}
+                                                        No photos available.
+                                                    {% endif %}
+                                                </td>
+                            
+                                                <td onclick="window.location.href='/worker_listing/{{ row[4] }}/{{ row[0] }}'">{{ row[2] }}</td>
+                                                <td>{{ row[1] }}</td>
+                                                {% if row[2] != 'Delete - Pending' and row[2] != 'Deleted' %}
+                                                    <td> <button onclick="confirmDelete('{{ row[6] }}', '{{ row[4] }}', '{{ row[0] }}')">Delete</button> </td>
+                                                {% else %}
+                                                    <td> <button onclick="alert('This listing has been or is currently being deleted')">Delete</button> </td>
+                                                {% endif %}
+                                                </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                    </tbody>
+                                    </table>
+                                    </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <script>
+                function toggleListings(pending, posted, deleted, all) {
+                    if(pending){
+                        document.getElementById('all_listings_table').style.display = 'none';
+                        document.getElementById('posted_table').style.display = 'none';
+                        document.getElementById('deleted_table').style.display = 'none';
+                        document.getElementById('pending_table').style.display = 'block';
+                        console.log('hi')
+                    } else if(posted){
+                        document.getElementById('all_listings_table').style.display = 'none';
+                        document.getElementById('deleted_table').style.display = 'none';
+                        document.getElementById('pending_table').style.display = 'none';
+                        document.getElementById('posted_table').style.display = 'block';
+                    } else if(deleted){
+                        document.getElementById('all_listings_table').style.display = 'none';
+                        document.getElementById('pending_table').style.display = 'none';
+                        document.getElementById('posted_table').style.display = 'none';
+                        document.getElementById('deleted_table').style.display = 'block';
+                    } else if(all){
+                        document.getElementById('pending_table').style.display = 'none';
+                        document.getElementById('posted_table').style.display = 'none';
+                        document.getElementById('deleted_table').style.display = 'none';
+                        document.getElementById('all_listings_table').style.display = 'block';
+                    }
+                }
+            </script>
+            {% endblock %}

@@ -1,0 +1,73 @@
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">{{ result[listing_titles['Title']] }}</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    {% if result[5] %}
+                        {% for photo in result[5].split(',') %}
+                         {% set filenameConcat = filePrefix + photo %}
+                    <img style="max-height: 100px;" src="{{ url_for('static', filename=filenameConcat) }}" alt="photo" class="img-thumbnail">
+                        {% endfor %}
+                    {% else %}
+                        No photos available.
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <ul class="list-group">
+                        {% for tit in listing_titles%}
+                            {% if result[listing_titles[tit]] != 'null' %}
+                        <li class="list-group-item">{{tit}} : {{ result[listing_titles[tit]] }}</li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+            <div class="card-footer">
+                <form method="POST" action="">
+                    <div class="">
+                        <div class="col-md-2">
+                            <label for="">Facebook</label>
+                            <input type="text" name="fb_link" class="form-control" value="{{ result[listing_titles['fb_link']] }}">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">Craigslist</label>
+                            <input type="text" name="craigslist_link" class="form-control" value="{{ result[listing_titles['craigslist_link']] }}">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">Kijiji</label>
+                            <input type="text" name="kijiji_link" class="form-control" value="{{ result[listing_titles['kijiji_link']] }}">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">Pinkbike</label>
+                            <input type="text" name="pinkbike_link" class="form-control" value="{{ result[listing_titles['pinkbike_link']] }}">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">Ebay</label>
+                            <input type="text" name="ebay_link" class="form-control" value="{{ result[listing_titles['ebay_link']] }}">
+                        </div>
+
+                        <select name="status" id="">
+                            <option value="Post - Pending" {% if result[listing_titles['Status']] == 'Post - Pending' %} selected {% endif %}>Post - Pending</option>
+                            <option value="Posted" {% if result[listing_titles['Status']] == 'Posted' %} selected {% endif %}>Posted</option>
+                            <option value="Delete - Pending" {% if result[listing_titles['Status']] == 'Delete - Pending' %} selected {% endif %}>Delete - Pending</option>
+                            <option value="Deleted" {% if result[listing_titles['Status']] == 'Deleted' %} selected {% endif %}>Deleted</option>
+                        </select>
+
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary btn-block">Update Links</button>
+                        </div>
+
+                        
+
+                    </div>
+                </form>
+            </div>
+        </div>
+{% endblock %}
