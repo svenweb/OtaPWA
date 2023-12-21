@@ -57,8 +57,14 @@ def register():
 
 
 
-# Login Page
 @app.route('/', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
+
+
+
+# Login Page
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         # Get user input
