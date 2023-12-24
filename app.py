@@ -81,10 +81,12 @@ def login():
         result = c.fetchone()
         if result:
             session['user_id'] = result[0]
-            session['username'] = result[9]
-            if result[3] == 'Customer':
+            session['username'] = result[3]
+            print(result)
+            print('Result 3: '+result[8])
+            if result[8] == 'Customer':
                 return redirect(url_for('poster'))
-            elif result[3] == 'Worker':
+            elif result[8] == 'Worker':
                 return redirect(url_for('listings'))
         else:
             return "Invalid email/username or password"
